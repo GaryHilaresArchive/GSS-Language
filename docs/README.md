@@ -9,7 +9,7 @@ A simple property sheets language developed for a private project.
 
 ## Contributing
 ### Pull requests
-You can make pull requests. To do so, follow those steps:
+We encourage you to make pull requests. To do so, follow those steps:
 1. Clone the repository.
 2. Start the repository in your local computer.
 3. Think about one issue or feature you want to work on or go to the issues sections of GitHub and pick one.
@@ -18,9 +18,22 @@ You can make pull requests. To do so, follow those steps:
 6. Create a pull request.
 That's it!
 
+### Feature requests
+If you want to request a feature, please do it in the Issues section. Additionally, mark it clearly as a feature request and then provide the maximum details you can. Follow this format:
+```markdown
+## Description:
+Describe your feature clearly.
+
+## Example outputs:
+Explain what is supposed to happen with this new feature (e. g. if is a function explain what it should return when you call it with some parameters). Post as many examples as you can.
+
+## Notes:
+If there is something you must add do it here.
+```
+
 ### Issues
 You're welcome to posts issues. Just use the following format:
-```
+```markdown
 ## Description:
 Describe your problem clearly.
 
