@@ -1,4 +1,4 @@
-#include "GSS_Parser.hpp"
+#include "../include/GSS_Parser/GSS_Parser.hpp"
 #include <cassert>
 
 int main()
