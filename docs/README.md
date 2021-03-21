@@ -25,7 +25,8 @@ If you want to request a feature, please do it in the Issues section. Additional
 Describe your feature clearly.
 
 ## Example outputs:
-Explain what is supposed to happen with this new feature (e. g. if is a function explain what it should return when you call it with some parameters). Post as many examples as you can.
+Explain what is supposed to happen with this new feature (e. g. what your function should return when is called).
+Post as many examples as you can.
 
 ## Notes:
 If there is something you must add do it here.
