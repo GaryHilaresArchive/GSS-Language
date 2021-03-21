@@ -1,4 +1,4 @@
-# GSS_Parser
+# GSS Parser
 ## Description
 A simple open-source property sheets language developed for C++.
 
