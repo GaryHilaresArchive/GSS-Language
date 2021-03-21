@@ -1,11 +1,15 @@
 # GSS_Parser
 ## Description
-A simple property sheets language developed for a private project.
+A simple open-source property sheets language developed for C++.
 
 ## Features
+- Open-soure.
 - Simple.
 - Very readable.
-- Header-only parser.
+- One header-only.
+- Inmutable objects.
+- Natural C++ like syntax.
+- Supports scoping.
 
 ## Contributing
 ### Pull requests
