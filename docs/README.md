@@ -1,6 +1,6 @@
 # GSS Language (and parser)
 ## Description
-A simple open-source property sheets language inspired in CSS and developed for C++.
+A simple open-source property sheets language inspired in CSS and developed for future projects.
 
 ## Features
 - Open-soure.
