@@ -6,7 +6,7 @@ A Comment is a line that is ignored in GSS.
 
 ### Syntax
 ```
-; ${comment} \n
+; ${comment} ${\n}
 ```
 
 ### Property Name
@@ -34,7 +34,7 @@ A property is defined as a pair of a Property Name and a Property Value.
 
 ### Syntax:
 ```
-  ${Property Name}: ${Property Vaue}; \n
+  ${Property Name}: ${Property Vaue}; ${\n}
 ```
 
 ### Property Class Name
@@ -67,8 +67,10 @@ A Property Class is defined as a pair of a Property Class Name and a Property Cl
 ```
   ${Property Class Name} =
     ${Property Class Value}
-  end
+  end ${\n}
 ```
 
 ## Class Management
 ### Inheritance
+#### Definition
+Every object in GSS inherits the caracteristics of the outer class it is in.
