@@ -6,16 +6,17 @@
 ![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)
 
 ## Description
-A simple open-source property sheets language inspired in CSS and developed for future projects.
+A simple open-source property sheets language inspired in CSS and developed to enforce the Keep It Simple design principle.
 
 ## Features
+- Free.
 - Open-soure.
 - Simple.
 - Very readable.
-- One header-only.
 - Inmutable objects.
-- Natural C++ like syntax.
 - Supports scoping.
+- One header-only parser.
+- Parser uses natural C++ like syntax.
 
 ## Contributing
 ### Pull requests
