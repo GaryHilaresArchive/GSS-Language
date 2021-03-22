@@ -1,4 +1,7 @@
 # Language Documentation
+## What is GSS?
+GSS is a property definition for your applications to manage properties in a very natural way.
+
 ## Basic Components
 ## Comment
 ### Definition
