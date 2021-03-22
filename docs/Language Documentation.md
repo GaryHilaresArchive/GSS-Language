@@ -48,15 +48,15 @@ A Property Class Name is defined as a string that is used to refer to a Property
 
 ### Property Class Value
 #### Definition
-A Property Class Value is defined as a set of Property definitions.
+A Property Class Value is defined as a set of Property and Property Class definitions.
 
 #### Syntax
 ```
-  ${Property 1}
-  ${Property 2}
-  ${Property 3}
+  ${Property/Property Class 1}
+  ${Property/Property Class 2}
+  ${Property/Property Class 3}
   ${...}
-  ${Property N}
+  ${Property/Property Class N}
 ```
 
 ### Property Class
