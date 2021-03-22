@@ -1,46 +1,56 @@
 # Language Documentation
-## Property Name
+## Basic Components
+## Comment
 ### Definition
+A Comment is a line that is ignored in GSS.
+
+### Syntax
+```
+; ${comment} \n
+```
+
+### Property Name
+#### Definition
 A Property Name is defined as a string that is used to refer to a Property.
 
-### Syntax:
+#### Syntax:
 ```
   ${name}
 ```
 
-## Property Value
-### Definition
+### Property Value
+#### Definition
 A Property Value is defined as a set of values.
 It can have any length.
 
-### Syntax:
+#### Syntax:
 ```
   ${value 1} ${value 2} ${value 3} ${...} ${value N}
 ```
 
-## Property
-### Definition
+### Property
+#### Definition
 A property is defined as a pair of a Property Name and a Property Value.
 
 ### Syntax:
 ```
-  ${Property Name}: ${Property Vaue};
+  ${Property Name}: ${Property Vaue}; \n
 ```
 
-## Property Class Name
-### Definition
+### Property Class Name
+#### Definition
 A Property Class Name is defined as a string that is used to refer to a Property Class.
 
-### Syntax
+#### Syntax
 ```
   ${name}
 ```
 
-## Property Class Value
-### Definition
+### Property Class Value
+#### Definition
 A Property Class Value is defined as a set of Property definitions.
 
-### Syntax
+#### Syntax
 ```
   ${Property 1}
   ${Property 2}
@@ -49,13 +59,16 @@ A Property Class Value is defined as a set of Property definitions.
   ${Property N}
 ```
 
-## Property Class
-### Definition
+### Property Class
+#### Definition
 A Property Class is defined as a pair of a Property Class Name and a Property Class Value.
 
-### Syntax
+#### Syntax
 ```
   ${Property Class Name} =
     ${Property Class Value}
   end
 ```
+
+## Class Management
+### Inheritance
