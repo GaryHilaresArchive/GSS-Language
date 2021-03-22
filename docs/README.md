@@ -10,7 +10,7 @@ A simple open-source property sheets language inspired in CSS and developed to e
 
 ## Features
 - Free.
-- Open-soure.
+- Open-source.
 - Simple.
 - Very readable.
 - Inmutable objects.
