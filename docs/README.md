@@ -1,7 +1,6 @@
 # GSS Language (and parser)
 ![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GSS-Language?style=for-the-badge)
 ![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GSS-Language?style=for-the-badge)
-![badge-closedissues](https://img.shields.io/github/issues-closed-raw/GaryNLOL/GSS-Language?style=for-the-badge)
 ![badge-license](https://img.shields.io/github/license/GaryNLOL/GSS-Language?style=for-the-badge)
 ![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge)
 ![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)
