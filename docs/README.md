@@ -2,7 +2,7 @@
 [![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/commits/main)
 [![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/issues)
 [![badge-license](https://img.shields.io/github/license/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/LICENSE)
-![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge)
+[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/graphs/contributors)
 ![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)
 
 ## Description
