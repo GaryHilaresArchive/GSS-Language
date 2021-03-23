@@ -38,7 +38,7 @@ If you want to request a feature, please do it in the Issues section. Additional
 Describe your feature clearly.
 
 ## Example outputs:
-Explain what is supposed to happen with this new feature (e. g. what your function should return when is called).
+Explain what is supposed to happen (e. g. what your function should return when is called).
 Post as many examples as you can.
 
 ## Notes:
