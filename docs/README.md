@@ -9,6 +9,7 @@
 A simple open-source property sheets language inspired in CSS and developed to enforce the Keep It Simple design principle.
 
 ## Features
+- Scalable.
 - Free.
 - Open-source.
 - Simple.
@@ -17,6 +18,7 @@ A simple open-source property sheets language inspired in CSS and developed to e
 - Supports scoping.
 - One header-only parser.
 - Parser uses natural C++ like syntax.
+- Only needs the standard C++ library.
 
 ## Contributing
 ### Pull requests
