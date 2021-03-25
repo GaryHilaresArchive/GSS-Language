@@ -16,4 +16,11 @@ MainToolbar =
 		end
 	end
 end
+RPG =
+   Hero =
+      life: 42.5;
+      attack: 38.0;
+   end
+end
+
 
