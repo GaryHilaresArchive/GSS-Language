@@ -64,3 +64,6 @@ Include your OS.
 ## Notes:
 If there is something you must add do it here.
 ```
+
+#### Media
+[Discord Server.](https://discord.gg/RQN6gcDQwX)
