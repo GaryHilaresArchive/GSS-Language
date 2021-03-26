@@ -1,101 +1,71 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <string>
 #include <unordered_map>
-#include <stack>
-#include <list>
-#include <vector>
 
 namespace GSS
 {
     class WrongTypeException : public std::exception
     {
-        virtual const char *what() const noexcept
-        {
-            return "Requested int, addressed point is a std::string.";
-        }
+        virtual const char *what() const noexcept;
     };
     class InvalidRequestException : public std::exception
     {
-        virtual const char *what() const noexcept
-        {
-            return "Request does not address to a valid point.";
-        }
+        virtual const char *what() const noexcept;
     };
-
     class PropertyHolder
     {
     public:
-        virtual int getInt(const std::string& request) const { throw InvalidRequestException(); }
-        virtual double getDouble(const std::string& request) const { throw InvalidRequestException(); }
-        virtual std::string getString(const std::string& request) const { throw InvalidRequestException(); }
+        virtual int getInt(const std::string& request) const = 0;
+        virtual double getDouble(const std::string& request) const = 0;
+        virtual std::string getString(const std::string& request) const = 0;
         virtual ~PropertyHolder() = default;
     };
-
     class PropertyRule : public PropertyHolder
     {
     private:
         std::string data;
     public:
+        /** Constructor
+          * Creates a Property Rule with the given data.
+          *
+          * @param A std::string containing the data.
+          * @return A PropertyRule with the given data.
+          * @throw No throw.
+          *
+          **/
         PropertyRule(const std::string& data) : data(data) {}
-        int getInt(const std::string& request) const override
-        {
-            std::string processing = this->getString(request);
-            int ret;
-            try
-            {
-                ret = std::stoi(processing);
-            }
-            catch (std::invalid_argument& error)
-            {
-                throw WrongTypeException();
-            }
-            return ret;
-        }
-        double getDouble(const std::string& request) const override
-        {
-            std::string processing = this->getString(request);
-            double ret;
-            try
-            {
-                ret = std::stod(processing);
-            }
-            catch (std::invalid_argument& error)
-            {
-                throw WrongTypeException();
-            }
-            return ret;
-        }
-        std::string getString(const std::string& request) const override
-        {
-            unsigned short int index;
-            if (request == "")
-            {
-                index = 1;
-            }
-            else if (request[0] == '#')
-            {
-                try
-                {
-                    index = std::stoi(request.substr(1, request.size() - 1));
-                }
-                catch (std::invalid_argument &error)
-                {
-                    throw InvalidRequestException();
-                }
-            }
-            else
-            {
-                throw InvalidRequestException();
-            }
-            std::istringstream ss(this->data);
-            std::string processing;
-            while (index--)
-                if (!(ss >> processing))
-                    throw InvalidRequestException();
-            return processing;
-        }
+        /** getInt
+          * Searchs an int in the given address.
+          *
+          * @param A std::string containing the requested
+          *        address.
+          * @return The int in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have an int on it.
+          *
+          **/
+        int getInt(const std::string& request) const override;
+        /** getDouble
+          * Searchs a double in the given address.
+          *
+          * @param A std::stringstring containing the requested
+          *        address.
+          * @return The double in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have a double on it.
+          *
+          **/
+        double getDouble(const std::string& request) const override;
+        /** getString
+          * Searchs a std::string in the given address.
+          *
+          * @param A std::string containing the requested address.
+          * @return The std::string in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have a std::string on it.
+          *
+          **/
+        std::string getString(const std::string& request) const override;
     };
 
     class PropertySheet : public PropertyHolder
@@ -103,160 +73,80 @@ namespace GSS
     private:
         std::unordered_map<std::string, PropertyHolder*> properties;
     public:
-        static PropertySheet loadFromStream(std::istream& in)
-        {
-            PropertySheet root;
-            std::stack<PropertySheet*, std::list<PropertySheet *>> outer_classes;
-            std::vector<std::pair<std::string, std::string>> property_rules_saved;
-            std::stack<int, std::list<int>> property_rules_saved_amount;
-            int property_rules_saving_amount = 0;
-            PropertySheet* inner_class = &root;
-            std::string processing;
-            while (std::getline(in, processing))
-            {
-                if (processing.find("end") != processing.npos)
-                {
-                    for (int i = 0; i < property_rules_saving_amount; i++)
-                        property_rules_saved.pop_back();
-                    inner_class = outer_classes.top();
-                    outer_classes.pop();
-                    property_rules_saving_amount = property_rules_saved_amount.top();
-                    property_rules_saved_amount.pop();
-                    continue;
-                }
-                std::string::size_type determining_index = processing.find_first_of("=:;");
-                if (determining_index == processing.npos || processing[determining_index] == ';')
-                {
-                    continue;
-                }
-                else if (processing[determining_index] == '=')
-                {
-                    std::string::size_type start_substr = processing.find_first_not_of(" \t");
-                    std::string::size_type end_substr = processing.find_last_not_of(" \t", determining_index - 1);
-                    std::string name = processing.substr(start_substr, end_substr - start_substr + 1);
-                    if (inner_class->properties.find(name) != inner_class->properties.end())
-                        delete inner_class->properties[name];
-                    inner_class->properties[name] = new PropertySheet();
-                    property_rules_saved_amount.push(property_rules_saving_amount);
-                    property_rules_saving_amount = 0;
-                    outer_classes.push(inner_class);
-                    inner_class = dynamic_cast<PropertySheet*>(inner_class->properties[name]);
-                    for (const std::pair<std::string, std::string> &property_rule_it : property_rules_saved)
-                    {
-                        if (inner_class->properties.find(name) != inner_class->properties.end())
-                            delete inner_class->properties[name];
-                        inner_class->properties[property_rule_it.first] = new PropertyRule(property_rule_it.second);
-                    }
-                }
-                else if (processing[determining_index] == ':')
-                {
-                    std::string::size_type start_name = processing.find_first_not_of(" \t");
-                    std::string::size_type end_name = processing.find_last_not_of(" \t", determining_index - 1);
-                    std::string::size_type start_value = processing.find_first_not_of(" \t", end_name + 2);
-                    std::string::size_type end_value = processing.find(';', end_name + 2);
-                    std::string name = processing.substr(start_name, end_name - start_name + 1);
-                    std::string value = processing.substr(start_value, end_value - start_value);
-                    if (inner_class->properties.find(name) != inner_class->properties.end())
-                        delete inner_class->properties[name];
-                    inner_class->properties[name] = new PropertyRule(value);
-                    property_rules_saved.push_back({name, value});
-                    property_rules_saving_amount++;
-                }
-            }
-            return root;
-        }
-        static PropertySheet loadFromFile(const std::string& filename)
-        {
-            std::ifstream ifile(filename);
-            if (ifile.fail())
-                throw InvalidRequestException();
-            PropertySheet root = loadFromStream(ifile);
-            ifile.close();
-            return root;
-        }
-        const PropertySheet &getPropertySheet(const std::string& request) const
-        {
-            const PropertySheet* cur = this;
-            std::string::size_type substr_start = 0;
-            while (substr_start < request.size())
-            {
-                std::string::size_type substr_end = request.find("::", substr_start);
-                substr_end = (substr_end == request.npos ? request.size() : substr_end - 1);
-                std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
-                try
-                {
-                    cur = dynamic_cast<PropertySheet *>(cur->properties.at(request_substr));
-                    if (cur == nullptr)
-                        throw InvalidRequestException();
-                }
-                catch (std::out_of_range& error)
-                {
-                    throw InvalidRequestException();
-                }
-                substr_start = substr_end + 3;
-            }
-            return *cur;
-        }
-        const PropertyRule &getPropertyRule(const std::string& request) const
-        {
-            const PropertySheet* cur = this;
-            std::string::size_type substr_start = 0;
-            while (substr_start < request.size())
-            {
-                std::string::size_type substr_end = request.find("::", substr_start);
-                substr_end = (substr_end == request.npos ? request.size() - 1 : substr_end - 1);
-                std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
-                try
-                {
-                    PropertySheet *tmp = dynamic_cast<PropertySheet*>(cur->properties.at(request_substr));
-                    if (tmp == nullptr)
-                    {
-                        if (substr_end != request.size() - 1)
-                            throw InvalidRequestException();
-                        const PropertyRule *ret = dynamic_cast<PropertyRule*>(cur->properties.at(request_substr));
-                        if (ret == nullptr)
-                            throw InvalidRequestException();
-                        return *ret;
-                    }
-                    cur = tmp;
-                }
-                catch (std::out_of_range& error)
-                {
-                    throw InvalidRequestException();
-                }
-                substr_start = substr_end + 3;
-            }
-            throw InvalidRequestException();
-        }
-        int getInt(const std::string& request) const override
-        {
-            std::string::size_type delimiter_index = request.find_last_of(":#");
-            if (delimiter_index == request.npos)
-                delimiter_index = 0;
-            if (request[delimiter_index] == ':')
-                return this->getPropertyRule(request).getInt("");
-            else
-                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getInt(request.substr(delimiter_index, request.size() - delimiter_index));
-        }
-        double getDouble(const std::string& request) const override
-        {
-            std::string::size_type delimiter_index = request.find_last_of(":#");
-            if (delimiter_index == request.npos)
-                delimiter_index = 0;
-            if (request[delimiter_index] == ':')
-                return this->getPropertyRule(request).getDouble("");
-            else
-                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getDouble(request.substr(delimiter_index, request.size() - delimiter_index));
-        }
-        std::string getString(const std::string& request) const override
-        {
-            std::string::size_type delimiter_index = request.find_last_of(":#");
-            if (delimiter_index == request.npos)
-                delimiter_index = 0;
-            if (request[delimiter_index] == ':')
-                return this->getPropertyRule(request).getString("");
-            else
-                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getString(request.substr(delimiter_index, request.size() - delimiter_index));
-        }
+        /** loadFromStream
+          * Creates a PropertySheet from an istream. The content of
+          * the istream must be written in GSS.
+          *
+          * @param A reference to an istream which is written in
+          *        GSS syntax.
+          * @return The Property Sheet generated from the istream.
+          * @throw Never.
+          *
+          **/
+        static PropertySheet loadFromStream(std::istream& in);
+        /** loadFromFile
+          * Creates a PropertySheet from a file. The content of
+          * the file must be written in GSS.
+          *
+          * @param The filename of a file which is written in
+          *        GSS syntax.
+          * @return The Property Sheet generated from the file.
+          * @throw InvalidRequestException if the file does
+          *        not cannot be accessed (or not exists).
+          *
+          **/
+        static PropertySheet loadFromFile(const std::string& filename);
+        /** getPropertySheet
+          * Searchs a PropertySheet in the given address.
+          *
+          * @param A std::string containing the requested address.
+          * @return The PropertySheet in the given address.
+          * @throw InvalidRequestException if the adress does
+          *        not have a PropertySheet on it.
+          *
+          **/
+        const PropertySheet& getPropertySheet(const std::string& request) const;
+        /** getPropertyRule
+          * Searchs a PropertyRule in the given address.
+          *
+          * @param A std::string containing the requested address.
+          * @return The PropertyRule in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have a PropertyRule on it.
+          *
+          **/
+        const PropertyRule& getPropertyRule(const std::string& request) const;
+        /** getInt
+          * Searchs an int in the given address.
+          *
+          * @param A std::string containing the requested
+          *        address.
+          * @return The int in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have an int on it.
+          *
+          **/
+        int getInt(const std::string& request) const override;
+        /** getDouble
+          * Searchs a double in the given address.
+          *
+          * @param A std::stringstring containing the requested
+          *        address.
+          * @return The double in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have a double on it.
+          *
+          **/
+        double getDouble(const std::string& request) const override;
+        /** getString
+          * Searchs a std::string in the given address.
+          *
+          * @param A std::string containing the requested address.
+          * @return The std::string in the given address.
+          * @throw InvalidRequestException if the address does
+          *        not have a std::string on it.
+          *
+          **/
+        std::string getString(const std::string& request) const override;
     };
 }
