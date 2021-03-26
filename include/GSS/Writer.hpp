@@ -7,30 +7,16 @@ namespace GSS
     class Writer
     {
     private:
-        std::string out_filename;
         bool updated;
-        bool save_on_destroy;
     public:
         /** Constructor
-          * Creates a Writer which output is the given filename.
+          * Creates a Writer.
           *
-          * @param A filename to send the output.
-          * @param Whether the changes should be automatically
-          *        saved to the file when the object is
-          *        destroyed. Default to true.
-          * @return A Writer which output is the given filename.
+          * @return A Writer.
           * @throw Never throws.
           *
           **/
-        Writer(std::string new_out_filename, bool new_save_on_destroy = true):
-            out_filename(new_out_filename), updated(true), save_on_destroy(new_save_on_destroy) {}
-        /** Destructor
-          * If save_on_destroy is true, saves the changes to the
-          * file.
-          *
-          * @relatesalso GSS::Writer::writeToFile.
-          **/
-        ~Writer(){this->writeToFile();}
+        Writer(): updated(true) {}
         /** addClass
           * Adds a property class with the given information.
           *
@@ -43,7 +29,7 @@ namespace GSS
           *        not valid or if class_name is empty.
           *
           **/
-        void addClass(const std::string& request, const std::string& class_name, const std::vector<std::pair<std::string,std::string>>& properties = {}) {updated = false;}
+        void addClass(const std::string& request, const std::string& class_name, const std::vector<std::pair<std::string,std::string>>& properties = {});
         /** addProperty
           * Adds a property name with the given information.
           *
@@ -55,7 +41,14 @@ namespace GSS
           *        property_value is empty.
           *
           **/
-        void addProperty(const std::string& request, const std::string& property_name, const std::string& property_value){updated = false;}
-        void writeToFile(){}
+        void addProperty(const std::string& request, const std::string& property_name, const std::string& property_value);
+        /** writeToFile
+          * Writes the Writer's data to a file.
+          *
+          * @param The filename of a file.
+          * @throw No throws.
+          *
+          **/
+        void writeToFile(const std::string& filename);
     };
 }
