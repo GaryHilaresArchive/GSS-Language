@@ -8,7 +8,7 @@
 ## What is GSS Language?
 GSS Language is a simple open-source property definition language inspired in CSS and developed to enforce the Keep It Simple design principle.
 
-## Features
+### Features
 - Efficient.
 - Scalable.
 - Free.
@@ -21,10 +21,10 @@ GSS Language is a simple open-source property definition language inspired in CS
 - Reader uses natural C++ like syntax.
 - Only needs the standard C++ library.
 
-## Platforms
+### Platforms
 - Cross-platform.
 
-## Dependencies
+### Dependencies
 - None, it just uses the standard C++ library.
 
 ## Contributing
