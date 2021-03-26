@@ -5,8 +5,8 @@
 [![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/graphs/contributors)
 [![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language)
 
-## Description
-A simple open-source property definition language inspired in CSS and developed to enforce the Keep It Simple design principle.
+## What is GSS Language?
+GSS Language is a simple open-source property definition language inspired in CSS and developed to enforce the Keep It Simple design principle.
 
 ## Features
 - Efficient.
@@ -20,6 +20,12 @@ A simple open-source property definition language inspired in CSS and developed 
 - One header-only reader.
 - Reader uses natural C++ like syntax.
 - Only needs the standard C++ library.
+
+## Platforms
+- Cross-platform.
+
+## Dependencies
+- None, it just uses the standard C++ library.
 
 ## Contributing
 ### Pull requests
@@ -65,5 +71,5 @@ Include your OS.
 If there is something you must add do it here.
 ```
 
-#### Media
-[Discord Server.](https://discord.gg/RQN6gcDQwX)
+#### Useful links
+- [Discord Server.](https://discord.gg/RQN6gcDQwX)
