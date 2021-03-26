@@ -9,14 +9,14 @@
 
 namespace GSS
 {
-    class wrongType : public std::exception
+    class WrongTypeException : public std::exception
     {
         virtual const char *what() const noexcept
         {
             return "Requested int, addressed point is a std::string.";
         }
     };
-    class invalidRequest : public std::exception
+    class InvalidRequestException : public std::exception
     {
         virtual const char *what() const noexcept
         {
@@ -27,9 +27,9 @@ namespace GSS
     class PropertyHolder
     {
     public:
-        virtual int getInt(const std::string &request) const { throw invalidRequest(); }
-        virtual double getDouble(const std::string &request) const { throw invalidRequest(); }
-        virtual std::string getString(const std::string &request) const { throw invalidRequest(); }
+        virtual int getInt(const std::string& request) const { throw InvalidRequestException(); }
+        virtual double getDouble(const std::string& request) const { throw InvalidRequestException(); }
+        virtual std::string getString(const std::string& request) const { throw InvalidRequestException(); }
         virtual ~PropertyHolder() = default;
     };
 
@@ -37,10 +37,9 @@ namespace GSS
     {
     private:
         std::string data;
-
     public:
-        PropertyRule(std::string data) : data(data) {}
-        int getInt(const std::string &request) const override
+        PropertyRule(const std::string& data) : data(data) {}
+        int getInt(const std::string& request) const override
         {
             std::string processing = this->getString(request);
             int ret;
@@ -48,13 +47,13 @@ namespace GSS
             {
                 ret = std::stoi(processing);
             }
-            catch (std::invalid_argument &error)
+            catch (std::invalid_argument& error)
             {
-                throw wrongType();
+                throw WrongTypeException();
             }
             return ret;
         }
-        double getDouble(const std::string &request) const override
+        double getDouble(const std::string& request) const override
         {
             std::string processing = this->getString(request);
             double ret;
@@ -62,13 +61,13 @@ namespace GSS
             {
                 ret = std::stod(processing);
             }
-            catch (std::invalid_argument &error)
+            catch (std::invalid_argument& error)
             {
-                throw wrongType();
+                throw WrongTypeException();
             }
             return ret;
         }
-        std::string getString(const std::string &request) const override
+        std::string getString(const std::string& request) const override
         {
             unsigned short int index;
             if (request == "")
@@ -83,18 +82,18 @@ namespace GSS
                 }
                 catch (std::invalid_argument &error)
                 {
-                    throw invalidRequest();
+                    throw InvalidRequestException();
                 }
             }
             else
             {
-                throw invalidRequest();
+                throw InvalidRequestException();
             }
             std::istringstream ss(this->data);
             std::string processing;
             while (index--)
                 if (!(ss >> processing))
-                    throw invalidRequest();
+                    throw InvalidRequestException();
             return processing;
         }
     };
@@ -102,163 +101,162 @@ namespace GSS
     class PropertySheet : public PropertyHolder
     {
     private:
-        std::unordered_map<std::string, PropertyHolder *> properties;
-
+        std::unordered_map<std::string, PropertyHolder*> properties;
     public:
-        static PropertySheet loadFromStream(std::istream &in)
+        static PropertySheet loadFromStream(std::istream& in)
         {
             PropertySheet root;
-            std::stack<PropertySheet *, std::list<PropertySheet *>> outerClasses;
-            std::vector<std::pair<std::string, std::string>> propertyRulesSaved;
-            std::stack<int, std::list<int>> propertyRulesSavedAmount;
-            int propertyRulesSavingAmount = 0;
-            PropertySheet *innerClass = &root;
+            std::stack<PropertySheet*, std::list<PropertySheet *>> outer_classes;
+            std::vector<std::pair<std::string, std::string>> property_rules_saved;
+            std::stack<int, std::list<int>> property_rules_saved_amount;
+            int property_rules_saving_amount = 0;
+            PropertySheet* inner_class = &root;
             std::string processing;
             while (std::getline(in, processing))
             {
                 if (processing.find("end") != processing.npos)
                 {
-                    for (int i = 0; i < propertyRulesSavingAmount; i++)
-                        propertyRulesSaved.pop_back();
-                    innerClass = outerClasses.top();
-                    outerClasses.pop();
-                    propertyRulesSavingAmount = propertyRulesSavedAmount.top();
-                    propertyRulesSavedAmount.pop();
+                    for (int i = 0; i < property_rules_saving_amount; i++)
+                        property_rules_saved.pop_back();
+                    inner_class = outer_classes.top();
+                    outer_classes.pop();
+                    property_rules_saving_amount = property_rules_saved_amount.top();
+                    property_rules_saved_amount.pop();
                     continue;
                 }
-                std::string::size_type determiningIndex = processing.find_first_of("=:;");
-                if (determiningIndex == processing.npos || processing[determiningIndex] == ';')
+                std::string::size_type determining_index = processing.find_first_of("=:;");
+                if (determining_index == processing.npos || processing[determining_index] == ';')
                 {
                     continue;
                 }
-                else if (processing[determiningIndex] == '=')
+                else if (processing[determining_index] == '=')
                 {
-                    std::string::size_type startSubstr = processing.find_first_not_of(" \t");
-                    std::string::size_type endSubstr = processing.find_last_not_of(" \t", determiningIndex - 1);
-                    std::string name = processing.substr(startSubstr, endSubstr - startSubstr + 1);
-                    if (innerClass->properties.find(name) != innerClass->properties.end())
-                        delete innerClass->properties[name];
-                    innerClass->properties[name] = new PropertySheet();
-                    propertyRulesSavedAmount.push(propertyRulesSavingAmount);
-                    propertyRulesSavingAmount = 0;
-                    outerClasses.push(innerClass);
-                    innerClass = dynamic_cast<PropertySheet *>(innerClass->properties[name]);
-                    for (const std::pair<std::string, std::string> &propertyRuleIt : propertyRulesSaved)
+                    std::string::size_type start_substr = processing.find_first_not_of(" \t");
+                    std::string::size_type end_substr = processing.find_last_not_of(" \t", determining_index - 1);
+                    std::string name = processing.substr(start_substr, end_substr - start_substr + 1);
+                    if (inner_class->properties.find(name) != inner_class->properties.end())
+                        delete inner_class->properties[name];
+                    inner_class->properties[name] = new PropertySheet();
+                    property_rules_saved_amount.push(property_rules_saving_amount);
+                    property_rules_saving_amount = 0;
+                    outer_classes.push(inner_class);
+                    inner_class = dynamic_cast<PropertySheet*>(inner_class->properties[name]);
+                    for (const std::pair<std::string, std::string> &property_rule_it : property_rules_saved)
                     {
-                        if (innerClass->properties.find(name) != innerClass->properties.end())
-                            delete innerClass->properties[name];
-                        innerClass->properties[propertyRuleIt.first] = new PropertyRule(propertyRuleIt.second);
+                        if (inner_class->properties.find(name) != inner_class->properties.end())
+                            delete inner_class->properties[name];
+                        inner_class->properties[property_rule_it.first] = new PropertyRule(property_rule_it.second);
                     }
                 }
-                else if (processing[determiningIndex] == ':')
+                else if (processing[determining_index] == ':')
                 {
-                    std::string::size_type startName = processing.find_first_not_of(" \t");
-                    std::string::size_type endName = processing.find_last_not_of(" \t", determiningIndex - 1);
-                    std::string::size_type startValue = processing.find_first_not_of(" \t", endName + 2);
-                    std::string::size_type endValue = processing.find(';', endName + 2);
-                    std::string name = processing.substr(startName, endName - startName + 1);
-                    std::string value = processing.substr(startValue, endValue - startValue);
-                    if (innerClass->properties.find(name) != innerClass->properties.end())
-                        delete innerClass->properties[name];
-                    innerClass->properties[name] = new PropertyRule(value);
-                    propertyRulesSaved.push_back({name, value});
-                    propertyRulesSavingAmount++;
+                    std::string::size_type start_name = processing.find_first_not_of(" \t");
+                    std::string::size_type end_name = processing.find_last_not_of(" \t", determining_index - 1);
+                    std::string::size_type start_value = processing.find_first_not_of(" \t", end_name + 2);
+                    std::string::size_type end_value = processing.find(';', end_name + 2);
+                    std::string name = processing.substr(start_name, end_name - start_name + 1);
+                    std::string value = processing.substr(start_value, end_value - start_value);
+                    if (inner_class->properties.find(name) != inner_class->properties.end())
+                        delete inner_class->properties[name];
+                    inner_class->properties[name] = new PropertyRule(value);
+                    property_rules_saved.push_back({name, value});
+                    property_rules_saving_amount++;
                 }
             }
             return root;
         }
-        static PropertySheet loadFromFile(const std::string filename)
+        static PropertySheet loadFromFile(const std::string& filename)
         {
             std::ifstream ifile(filename);
             if (ifile.fail())
-                throw invalidRequest();
+                throw InvalidRequestException();
             PropertySheet root = loadFromStream(ifile);
             ifile.close();
             return root;
         }
-        const PropertySheet &getPropertySheet(const std::string &request) const
+        const PropertySheet &getPropertySheet(const std::string& request) const
         {
-            const PropertySheet *cur = this;
-            std::string::size_type substrStart = 0;
-            while (substrStart < request.size())
+            const PropertySheet* cur = this;
+            std::string::size_type substr_start = 0;
+            while (substr_start < request.size())
             {
-                std::string::size_type substrEnd = request.find("::", substrStart);
-                substrEnd = (substrEnd == request.npos ? request.size() : substrEnd - 1);
-                std::string requestSubstr = request.substr(substrStart, substrEnd - substrStart + 1);
+                std::string::size_type substr_end = request.find("::", substr_start);
+                substr_end = (substr_end == request.npos ? request.size() : substr_end - 1);
+                std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
                 try
                 {
-                    cur = dynamic_cast<PropertySheet *>(cur->properties.at(requestSubstr));
+                    cur = dynamic_cast<PropertySheet *>(cur->properties.at(request_substr));
                     if (cur == nullptr)
-                        throw invalidRequest();
+                        throw InvalidRequestException();
                 }
-                catch (std::out_of_range &error)
+                catch (std::out_of_range& error)
                 {
-                    throw invalidRequest();
+                    throw InvalidRequestException();
                 }
-                substrStart = substrEnd + 3;
+                substr_start = substr_end + 3;
             }
             return *cur;
         }
-        const PropertyRule &getPropertyRule(const std::string &request) const
+        const PropertyRule &getPropertyRule(const std::string& request) const
         {
-            const PropertySheet *cur = this;
-            std::string::size_type substrStart = 0;
-            while (substrStart < request.size())
+            const PropertySheet* cur = this;
+            std::string::size_type substr_start = 0;
+            while (substr_start < request.size())
             {
-                std::string::size_type substrEnd = request.find("::", substrStart);
-                substrEnd = (substrEnd == request.npos ? request.size() - 1 : substrEnd - 1);
-                std::string requestSubstr = request.substr(substrStart, substrEnd - substrStart + 1);
+                std::string::size_type substr_end = request.find("::", substr_start);
+                substr_end = (substr_end == request.npos ? request.size() - 1 : substr_end - 1);
+                std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
                 try
                 {
-                    PropertySheet *tmp = dynamic_cast<PropertySheet *>(cur->properties.at(requestSubstr));
+                    PropertySheet *tmp = dynamic_cast<PropertySheet*>(cur->properties.at(request_substr));
                     if (tmp == nullptr)
                     {
-                        if (substrEnd != request.size() - 1)
-                            throw invalidRequest();
-                        const PropertyRule *ret = dynamic_cast<PropertyRule *>(cur->properties.at(requestSubstr));
+                        if (substr_end != request.size() - 1)
+                            throw InvalidRequestException();
+                        const PropertyRule *ret = dynamic_cast<PropertyRule*>(cur->properties.at(request_substr));
                         if (ret == nullptr)
-                            throw invalidRequest();
+                            throw InvalidRequestException();
                         return *ret;
                     }
                     cur = tmp;
                 }
-                catch (std::out_of_range &error)
+                catch (std::out_of_range& error)
                 {
-                    throw invalidRequest();
+                    throw InvalidRequestException();
                 }
-                substrStart = substrEnd + 3;
+                substr_start = substr_end + 3;
             }
-            throw invalidRequest();
+            throw InvalidRequestException();
         }
-        int getInt(const std::string &request) const override
+        int getInt(const std::string& request) const override
         {
-            std::string::size_type delimiterIndex = request.find_last_of(":#");
-            if (delimiterIndex == request.npos)
-                delimiterIndex = 0;
-            if (request[delimiterIndex] == ':')
+            std::string::size_type delimiter_index = request.find_last_of(":#");
+            if (delimiter_index == request.npos)
+                delimiter_index = 0;
+            if (request[delimiter_index] == ':')
                 return this->getPropertyRule(request).getInt("");
             else
-                return this->getPropertyRule(request.substr(0, delimiterIndex - 2)).getInt(request.substr(delimiterIndex, request.size() - delimiterIndex));
+                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getInt(request.substr(delimiter_index, request.size() - delimiter_index));
         }
-        double getDouble(const std::string &request) const override
+        double getDouble(const std::string& request) const override
         {
-            std::string::size_type delimiterIndex = request.find_last_of(":#");
-            if (delimiterIndex == request.npos)
-                delimiterIndex = 0;
-            if (request[delimiterIndex] == ':')
+            std::string::size_type delimiter_index = request.find_last_of(":#");
+            if (delimiter_index == request.npos)
+                delimiter_index = 0;
+            if (request[delimiter_index] == ':')
                 return this->getPropertyRule(request).getDouble("");
             else
-                return this->getPropertyRule(request.substr(0, delimiterIndex - 2)).getDouble(request.substr(delimiterIndex, request.size() - delimiterIndex));
+                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getDouble(request.substr(delimiter_index, request.size() - delimiter_index));
         }
-        std::string getString(const std::string &request) const override
+        std::string getString(const std::string& request) const override
         {
-            std::string::size_type delimiterIndex = request.find_last_of(":#");
-            if (delimiterIndex == request.npos)
-                delimiterIndex = 0;
-            if (request[delimiterIndex] == ':')
+            std::string::size_type delimiter_index = request.find_last_of(":#");
+            if (delimiter_index == request.npos)
+                delimiter_index = 0;
+            if (request[delimiter_index] == ':')
                 return this->getPropertyRule(request).getString("");
             else
-                return this->getPropertyRule(request.substr(0, delimiterIndex - 2)).getString(request.substr(delimiterIndex, request.size() - delimiterIndex));
+                return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getString(request.substr(delimiter_index, request.size() - delimiter_index));
         }
     };
 }
