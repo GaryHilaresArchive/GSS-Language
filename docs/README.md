@@ -18,6 +18,7 @@ GSS Language is a simple open-source property definition language inspired in CS
 - Inmutable objects.
 - Supports scoping.
 - Reader uses natural C++ like syntax.
+- Includes GSS read/write tools.
 
 ### Platforms
 - Cross-platform.
