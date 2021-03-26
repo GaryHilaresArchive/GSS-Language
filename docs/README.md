@@ -71,6 +71,6 @@ Include your OS.
 If there is something you must add do it here.
 ```
 
-#### Useful links
+## Useful links
 - [Language Documentation](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/Language%20Documentation.md).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
