@@ -72,4 +72,5 @@ If there is something you must add do it here.
 
 ## Useful links
 - [Core Language Documentation](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/Language%20Documentation.md).
+- [Contributor Code of conduct](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CODE_OF_CONDUCT.md).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
