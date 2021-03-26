@@ -5,7 +5,7 @@
 int main()
 {
     //Testing for loadFromFile
-    GSS::PropertySheet source = GSS::PropertySheet::loadFromFile("properties.gss");
+    GSS::PropertyReader source = GSS::PropertyReader::loadFromFile("properties.gss");
 
     //Testing for getString
     assert(source.getString("MainToolbar::Button::background-color") == "#000000");
@@ -18,5 +18,5 @@ int main()
     //Testing for getDouble
     assert(source.getDouble("RPG::Hero::attack") == 38.0);
     assert(source.getDouble("RPG::Hero::life") == 42.5);
-    assert(ceil(source.getDouble("RPG::Hero::attack")) == 43.0);
+    assert(ceil(source.getDouble("RPG::Hero::life")) == 43.0);
 }

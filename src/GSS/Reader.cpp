@@ -15,7 +15,7 @@ const char* GSS::InvalidRequestException::what() const noexcept
    return "Request does not address to a valid point.";
 }
 
-int GSS::PropertyRule::getInt(const std::string& request) const
+int GSS::Property::getInt(const std::string& request) const
 {
     std::string processing = this->getString(request);
     int ret;
@@ -30,7 +30,7 @@ int GSS::PropertyRule::getInt(const std::string& request) const
     return ret;
 }
 
-double GSS::PropertyRule::getDouble(const std::string& request) const
+double GSS::Property::getDouble(const std::string& request) const
 {
     std::string processing = this->getString(request);
     double ret;
@@ -45,7 +45,7 @@ double GSS::PropertyRule::getDouble(const std::string& request) const
     return ret;
 }
 
-std::string GSS::PropertyRule::getString(const std::string& request) const
+std::string GSS::Property::getString(const std::string& request) const
 {
     unsigned short int index;
     if (request == "")
@@ -75,14 +75,14 @@ std::string GSS::PropertyRule::getString(const std::string& request) const
     return processing;
 }
 
-GSS::PropertySheet GSS::PropertySheet::loadFromStream(std::istream& in)
+GSS::PropertyClass GSS::PropertyClass::loadFromStream(std::istream& in)
 {
-    GSS::PropertySheet root;
-    std::stack<GSS::PropertySheet*, std::list<GSS::PropertySheet*>> outer_classes;
+    GSS::PropertyClass root;
+    std::stack<GSS::PropertyClass*, std::list<GSS::PropertyClass*>> outer_classes;
     std::vector<std::pair<std::string, std::string>> property_rules_saved;
     std::stack<int, std::list<int>> property_rules_saved_amount;
     int property_rules_saving_amount = 0;
-    GSS::PropertySheet* inner_class = &root;
+    GSS::PropertyClass* inner_class = &root;
     std::string processing;
     while (std::getline(in, processing))
     {
@@ -108,16 +108,16 @@ GSS::PropertySheet GSS::PropertySheet::loadFromStream(std::istream& in)
             std::string name = processing.substr(start_substr, end_substr - start_substr + 1);
             if (inner_class->properties.find(name) != inner_class->properties.end())
                 delete inner_class->properties[name];
-            inner_class->properties[name] = new PropertySheet();
+            inner_class->properties[name] = new PropertyClass();
             property_rules_saved_amount.push(property_rules_saving_amount);
             property_rules_saving_amount = 0;
             outer_classes.push(inner_class);
-            inner_class = dynamic_cast<PropertySheet*>(inner_class->properties[name]);
+            inner_class = dynamic_cast<PropertyClass*>(inner_class->properties[name]);
             for (const std::pair<std::string, std::string> &property_rule_it : property_rules_saved)
             {
                 if (inner_class->properties.find(name) != inner_class->properties.end())
                     delete inner_class->properties[name];
-                inner_class->properties[property_rule_it.first] = new PropertyRule(property_rule_it.second);
+                inner_class->properties[property_rule_it.first] = new Property(property_rule_it.second);
             }
         }
         else if (processing[determining_index] == ':')
@@ -130,7 +130,7 @@ GSS::PropertySheet GSS::PropertySheet::loadFromStream(std::istream& in)
             std::string value = processing.substr(start_value, end_value - start_value);
             if (inner_class->properties.find(name) != inner_class->properties.end())
                 delete inner_class->properties[name];
-            inner_class->properties[name] = new PropertyRule(value);
+            inner_class->properties[name] = new Property(value);
             property_rules_saved.push_back({name, value});
             property_rules_saving_amount++;
         }
@@ -138,19 +138,19 @@ GSS::PropertySheet GSS::PropertySheet::loadFromStream(std::istream& in)
     return root;
 }
 
-GSS::PropertySheet GSS::PropertySheet::loadFromFile(const std::string& filename)
+GSS::PropertyClass GSS::PropertyClass::loadFromFile(const std::string& filename)
 {
     std::ifstream ifile(filename);
     if (ifile.fail())
         throw InvalidRequestException();
-    GSS::PropertySheet root = loadFromStream(ifile);
+    GSS::PropertyClass root = loadFromStream(ifile);
     ifile.close();
     return root;
 }
 
-const GSS::PropertySheet& GSS::PropertySheet::getPropertySheet(const std::string& request) const
+const GSS::PropertyClass& GSS::PropertyClass::getPropertyClass(const std::string& request) const
 {
-    const PropertySheet* cur = this;
+    const PropertyClass* cur = this;
     std::string::size_type substr_start = 0;
     while (substr_start < request.size())
     {
@@ -159,7 +159,7 @@ const GSS::PropertySheet& GSS::PropertySheet::getPropertySheet(const std::string
         std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
         try
         {
-            cur = dynamic_cast<PropertySheet *>(cur->properties.at(request_substr));
+            cur = dynamic_cast<PropertyClass *>(cur->properties.at(request_substr));
             if (cur == nullptr)
                 throw InvalidRequestException();
         }
@@ -172,9 +172,9 @@ const GSS::PropertySheet& GSS::PropertySheet::getPropertySheet(const std::string
     return *cur;
 }
 
-const GSS::PropertyRule& GSS::PropertySheet::getPropertyRule(const std::string& request) const
+const GSS::Property& GSS::PropertyClass::getProperty(const std::string& request) const
 {
-    const GSS::PropertySheet* cur = this;
+    const GSS::PropertyClass* cur = this;
     std::string::size_type substr_start = 0;
     while (substr_start < request.size())
     {
@@ -183,12 +183,12 @@ const GSS::PropertyRule& GSS::PropertySheet::getPropertyRule(const std::string& 
         std::string request_substr = request.substr(substr_start, substr_end - substr_start + 1);
         try
         {
-            GSS::PropertySheet *tmp = dynamic_cast<GSS::PropertySheet*>(cur->properties.at(request_substr));
+            GSS::PropertyClass *tmp = dynamic_cast<GSS::PropertyClass*>(cur->properties.at(request_substr));
             if (tmp == nullptr)
             {
                 if (substr_end != request.size() - 1)
                     throw InvalidRequestException();
-                const GSS::PropertyRule *ret = dynamic_cast<GSS::PropertyRule*>(cur->properties.at(request_substr));
+                const GSS::Property *ret = dynamic_cast<GSS::Property*>(cur->properties.at(request_substr));
                 if (ret == nullptr)
                     throw InvalidRequestException();
                 return *ret;
@@ -204,35 +204,35 @@ const GSS::PropertyRule& GSS::PropertySheet::getPropertyRule(const std::string& 
     throw InvalidRequestException();
 }
 
-int GSS::PropertySheet::getInt(const std::string& request) const
+int GSS::PropertyClass::getInt(const std::string& request) const
 {
     std::string::size_type delimiter_index = request.find_last_of(":#");
     if (delimiter_index == request.npos)
         delimiter_index = 0;
     if (request[delimiter_index] == ':')
-        return this->getPropertyRule(request).getInt("");
+        return this->getProperty(request).getInt("");
     else
-        return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getInt(request.substr(delimiter_index, request.size() - delimiter_index));
+        return this->getProperty(request.substr(0, delimiter_index - 2)).getInt(request.substr(delimiter_index, request.size() - delimiter_index));
 }
 
-double GSS::PropertySheet::getDouble(const std::string& request) const
+double GSS::PropertyClass::getDouble(const std::string& request) const
 {
     std::string::size_type delimiter_index = request.find_last_of(":#");
     if (delimiter_index == request.npos)
         delimiter_index = 0;
     if (request[delimiter_index] == ':')
-        return this->getPropertyRule(request).getDouble("");
+        return this->getProperty(request).getDouble("");
     else
-        return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getDouble(request.substr(delimiter_index, request.size() - delimiter_index));
+        return this->getProperty(request.substr(0, delimiter_index - 2)).getDouble(request.substr(delimiter_index, request.size() - delimiter_index));
 }
 
-std::string GSS::PropertySheet::getString(const std::string& request) const
+std::string GSS::PropertyClass::getString(const std::string& request) const
 {
     std::string::size_type delimiter_index = request.find_last_of(":#");
     if (delimiter_index == request.npos)
         delimiter_index = 0;
     if (request[delimiter_index] == ':')
-        return this->getPropertyRule(request).getString("");
+        return this->getProperty(request).getString("");
     else
-        return this->getPropertyRule(request.substr(0, delimiter_index - 2)).getString(request.substr(delimiter_index, request.size() - delimiter_index));
+        return this->getProperty(request.substr(0, delimiter_index - 2)).getString(request.substr(delimiter_index, request.size() - delimiter_index));
 }

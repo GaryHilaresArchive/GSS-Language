@@ -12,15 +12,15 @@ namespace GSS
     {
         virtual const char *what() const noexcept;
     };
-    class PropertyHolder
+    class PropertyInterface
     {
     public:
-        virtual ~PropertyHolder() = default;
+        virtual ~PropertyInterface() = default;
         virtual int getInt(const std::string& request) const = 0;
         virtual double getDouble(const std::string& request) const = 0;
         virtual std::string getString(const std::string& request) const = 0;
     };
-    class PropertyRule : public PropertyHolder
+    class Property : public PropertyInterface
     {
     private:
         std::string data;
@@ -29,11 +29,11 @@ namespace GSS
           * Creates a Property Rule with the given data.
           *
           * @param A std::string containing the data.
-          * @return A PropertyRule with the given data.
+          * @return A Property with the given data.
           * @throw No throw.
           *
           **/
-        PropertyRule(const std::string& data) : data(data) {}
+        Property(const std::string& data) : data(data) {}
         /** getInt
           * Searchs an int in the given address.
           *
@@ -68,13 +68,13 @@ namespace GSS
         std::string getString(const std::string& request) const override;
     };
 
-    class PropertySheet : public PropertyHolder
+    class PropertyClass : public PropertyInterface
     {
-    private:
-        std::unordered_map<std::string, PropertyHolder*> properties;
+    protected:
+        std::unordered_map<std::string, PropertyInterface*> properties;
     public:
         /** loadFromStream
-          * Creates a PropertySheet from an istream. The content of
+          * Creates a PropertyClass from an istream. The content of
           * the istream must be written in GSS.
           *
           * @param A reference to an istream which is written in
@@ -83,9 +83,9 @@ namespace GSS
           * @throw Never.
           *
           **/
-        static PropertySheet loadFromStream(std::istream& in);
+        static PropertyClass loadFromStream(std::istream& in);
         /** loadFromFile
-          * Creates a PropertySheet from a file. The content of
+          * Creates a PropertyClass from a file. The content of
           * the file must be written in GSS.
           *
           * @param The filename of a file which is written in
@@ -95,27 +95,27 @@ namespace GSS
           *        not cannot be accessed (or not exists).
           *
           **/
-        static PropertySheet loadFromFile(const std::string& filename);
-        /** getPropertySheet
-          * Searchs a PropertySheet in the given address.
+        static PropertyClass loadFromFile(const std::string& filename);
+        /** getPropertyClass
+          * Searchs a PropertyClass in the given address.
           *
           * @param A std::string containing the requested address.
-          * @return The PropertySheet in the given address.
+          * @return The PropertyClass in the given address.
           * @throw InvalidRequestException if the adress does
-          *        not have a PropertySheet on it.
+          *        not have a PropertyClass on it.
           *
           **/
-        const PropertySheet& getPropertySheet(const std::string& request) const;
-        /** getPropertyRule
-          * Searchs a PropertyRule in the given address.
+        const PropertyClass& getPropertyClass(const std::string& request) const;
+        /** getProperty
+          * Searchs a Property in the given address.
           *
           * @param A std::string containing the requested address.
-          * @return The PropertyRule in the given address.
+          * @return The Property in the given address.
           * @throw InvalidRequestException if the address does
-          *        not have a PropertyRule on it.
+          *        not have a Property on it.
           *
           **/
-        const PropertyRule& getPropertyRule(const std::string& request) const;
+        const Property& getProperty(const std::string& request) const;
         /** getInt
           * Searchs an int in the given address.
           *
@@ -149,4 +149,5 @@ namespace GSS
           **/
         std::string getString(const std::string& request) const override;
     };
+    using PropertyReader = PropertyClass;
 }
