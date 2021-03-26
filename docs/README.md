@@ -1,4 +1,4 @@
-# GSS Language and tools
+# GSS Language and Tools
 [![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/commits/main)
 [![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/issues)
 [![badge-license](https://img.shields.io/github/license/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/blob/main/LICENSE)
