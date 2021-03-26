@@ -1,4 +1,4 @@
-# CPP Style Guide
+# C++ Style Guide
 ## Casing
 ### Namespaces
 Pascal Case.
