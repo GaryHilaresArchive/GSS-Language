@@ -15,10 +15,10 @@ namespace GSS
     class PropertyHolder
     {
     public:
+        virtual ~PropertyHolder() = default;
         virtual int getInt(const std::string& request) const = 0;
         virtual double getDouble(const std::string& request) const = 0;
         virtual std::string getString(const std::string& request) const = 0;
-        virtual ~PropertyHolder() = default;
     };
     class PropertyRule : public PropertyHolder
     {
