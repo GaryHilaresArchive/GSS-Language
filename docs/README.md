@@ -74,5 +74,5 @@ If there is something you must add do it here.
 - [Core Language Documentation](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/Language%20Documentation.md).
 - [New Contributor's Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTING.md).
 - [Contributor Code of conduct](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CODE_OF_CONDUCT.md).
-- [C++ Style Guides](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CPP%20Style%20Guide.md).
+- [C++ Style Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CPP%20Style%20Guide.md).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
