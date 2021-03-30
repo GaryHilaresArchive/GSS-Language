@@ -88,7 +88,7 @@ For the nature of the language, constructors must be in Pascal Case just as clas
 ### Variables
 All variable names must use Snake Case.
 
-You must never use 1 letter names for any variable. Instead, variable's names must be concise, but at the same time they must be descriptive enoungh to understand what is it's purpose. The only exceptions for this rule are the variables declared in the `for` statements, which have their own rules (see Control Structures section), and variables that represent coordinates, which may use `x`, `y` and `z` as variable names depending on which axis it represents.
+You must never use 1 letter names for any variable. Instead, variable's names must be concise, but at the same time they must be descriptive enoungh to understand what is it's purpose. The only exceptions for this rule are the variables declared in the `for` statements, which have their own rules (see "Control Structures" section), and variables that represent coordinates, which may use `x`, `y` and `z` as variable names depending on which axis it represents.
 
 #### Booleans
 Usually for booleans a descriptive verb must be used. This verb must describe what the boolean means and almost always it will be `is`, `are`, `have`, `has`, `do` or `does`. The name of the bool with the verb must be similiar to a yes-no question that must be answered by the bool's value.
