@@ -88,7 +88,7 @@ For the nature of the language, constructors must be in Pascal Case just as clas
 ### Variables
 All variable names must use Snake Case.
 
-Variable's names must be concise, but at the same time they must be descriptive enoungh to understand what is it's purpose.
+You must never use 1 letter names for any variable. Instead, variable's names must be concise, but at the same time they must be descriptive enoungh to understand what is it's purpose. The only exceptions for this rule are the variables declared in the `for` statements, which have their own rules (see Control Structures section), and variables that represent coordinates, which may use `x`, `y` and `z` as variable names depending on which axis it represents.
 
 #### Booleans
 Usually for booleans a descriptive verb must be used. This verb must describe what the boolean means and almost always it will be `is`, `are`, `have`, `has`, `do` or `does`. The name of the bool with the verb must be similiar to a yes-no question that must be answered by the bool's value.
@@ -133,5 +133,15 @@ It was only a special case for booleans. Other datatypes names must just describ
 
 ### Control Structures
 One-liners control Structures must go without braces in the next line. In other case, the control structure's body must start in the next line, including the braces.
+
+#### For statements
+(Note that this section is for `for(statement 1; statement 2; statement 3)` like statements, see "For Each statements" section for `for(type object: collection)`).
+
+In `for` statements, you may and must use only 1 letter if and only if you're declaring an integer, and that letter must be `i`. Additionally, if you have nested for loops, use `i` for the outer for loop, `j` for the first nested loop, `k` for the second nested loop and `l` for the third nested loop. You must not use `m`, this because if you have 5 nested `for` loops then you almost surely have a big design problem.
+
+#### For Each statements
+For each statements must be used when you want to iterate over a collection but you do not care about the position of each element. If you care about the position of the element, use For Statements.
+
+In For Each statements, never use "auto", specify the type of the object instead.
 
 **If you have any suggestion post it in the issues section.**
