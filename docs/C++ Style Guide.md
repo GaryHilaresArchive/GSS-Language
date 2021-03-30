@@ -62,9 +62,11 @@ Classes must use Pascal Case.
 ### Enums
 Do not use plain enums, use enum classes instead.
 
-If in any situation is strictly needed to use enums, then they must use Pascal Case.
-### Enum Classes
-Enum Classes must use Pascal Case.
+If in any situation is strictly needed to use enums, then they must use Pascal Case for the name of the enum and they must use a common prefix in uppercase, followed by an underscore and a name in Pascal Case for the enumerator name.
+### Enum Classes and Enum Structs
+Enum Classes and Enum Structs are exactly the same, so for consistency, always use Enum Classes.
+
+Enum Classes must use Pascal Case for both the enum name and the enumerator name.
 ### Typenames
 Typenames must use Pascal Case.
 ### Functions
