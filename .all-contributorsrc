@@ -11,7 +11,12 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/46727048?v=4",
       "profile": "https://github.com/GaryNLOL",
       "contributions": [
-        "bug"
+        "bug",
+        "code",
+        "doc",
+        "ideas",
+        "tool",
+        "test"
       ]
     }
   ],
