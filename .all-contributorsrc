@@ -1,6 +1,6 @@
 {
   "files": [
-    "README.md"
+    "docs/CONTRIBUTORS.md"
   ],
   "imageSize": 100,
   "commit": false,
@@ -11,7 +11,6 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/46727048?v=4",
       "profile": "https://github.com/GaryNLOL",
       "contributions": [
-        "bug",
         "code",
         "doc",
         "ideas",
