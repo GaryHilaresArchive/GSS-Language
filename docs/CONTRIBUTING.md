@@ -41,3 +41,5 @@ Include your OS.
 ## Notes:
 If there is something you must add do it here.
 ```
+
+By contributing in any way, you will enter our [All Contributor](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) lists.
