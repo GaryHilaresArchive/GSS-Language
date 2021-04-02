@@ -27,7 +27,10 @@ GSS Language is a simple open-source property definition language inspired in CS
 - None, it just uses the standard C++ library.
 
 ## Contributing
-### Pull requests
+### How to contribute?
+There are many ways in which you can contribute to the project.
+
+#### Pull requests
 We encourage you to make pull requests. To do so, follow those steps:
 1. Clone the repository.
 2. Start the repository in your local computer.
@@ -37,7 +40,7 @@ We encourage you to make pull requests. To do so, follow those steps:
 6. Create a pull request.
 That's it!
 
-### Feature requests
+#### Feature requests
 If you want to request a feature, please do it in the Issues section. Additionally, mark it clearly as a feature request and then provide the maximum details you can. Follow this format:
 ```markdown
 ## Description:
@@ -51,7 +54,7 @@ Post as many examples as you can.
 If there is something you must add do it here.
 ```
 
-### Issues
+#### Issues
 You're welcome to posts issues. Just use the following format:
 ```markdown
 ## Description:
@@ -69,6 +72,11 @@ Include your OS.
 ## Notes:
 If there is something you must add do it here.
 ```
+
+#### Other contributions
+You can also contribute by designing images, audio, videos and other media related to the project.
+
+To do so, join our [Discord Server](https://discord.gg/RQN6gcDQwX), go to the project's section and share your media in the respective `#design` channel.
 
 ### All Contributors list
 By contributing in any way, you will enter our [All Contributors](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) list.
