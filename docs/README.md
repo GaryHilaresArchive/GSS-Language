@@ -70,7 +70,8 @@ Include your OS.
 If there is something you must add do it here.
 ```
 
-By contributing in any way, you will enter our [All Contributor](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) list.
+### All Contributors list
+By contributing in any way, you will enter our [All Contributors](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) list.
 
 If you have contributed, but do not want to appear in the list, please contact me at garypastel@gmail.com.
 
