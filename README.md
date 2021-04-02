@@ -1,0 +1,1 @@
+Installing all-contributors
