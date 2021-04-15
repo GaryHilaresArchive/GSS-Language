@@ -6,7 +6,7 @@
 [![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language)
 
 ## What is GSS Language?
-GSS Language is a simple open-source property definition language inspired in CSS and developed to enforce the Keep It Simple design principle.
+GSS Language is a simple open-source property definition language inspired in Sass and developed to enforce the Keep It Simple design principle.
 
 ### Features
 - Efficient.
