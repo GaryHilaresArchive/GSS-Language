@@ -87,5 +87,5 @@ If you have contributed, but do not want to appear in the list, please contact m
 - [Core Language Documentation](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/Language%20Documentation.md).
 - [New Contributor's Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTING.md).
 - [Contributor Code of conduct](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CODE_OF_CONDUCT.md).
-- [C++ Style Guide](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/C%2B%2B%20Style%20Guide.md).
+- [C++ Style Guide](https://github.com/GaryNLOL/Style-Guides/blob/main/CPP%20Style%20Guide.md).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
