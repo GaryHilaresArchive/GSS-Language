@@ -78,4 +78,5 @@ You can also contribute in other aspects of the project. To do so, follow these 
 3. Upload it either in the Discord server or add it to the repository by a Pull Request (see Pull Requests section).
 
 ## Other details
-By contributing in any way, you will enter our [All Contributor](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) lists.
+### All Contributors
+By contributing in any way, you agree to enter our [All Contributor](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) lists.
