@@ -31,6 +31,5 @@ GSS Language is a simple open-source property definition language inspired in Sa
 ## Useful links
 - [Core Language Documentation](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/Language%20Documentation.md).
 - [Contributing Guidelines](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTING.md).
-- [Contributor Code of conduct](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CODE_OF_CONDUCT.md).
-- [C++ Style Guide](https://github.com/GaryNLOL/Style-Guides/blob/main/CPP%20Style%20Guide.md).
+- [Project's Style Guide](https://github.com/GaryNLOL/Style-Guides/).
 - [Discord Server.](https://discord.gg/RQN6gcDQwX)
