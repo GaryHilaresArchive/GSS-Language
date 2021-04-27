@@ -80,3 +80,4 @@ You can also contribute in other aspects of the project. To do so, follow these 
 ## Other details
 ### All Contributors
 By contributing in any way, you agree to enter our [All Contributor](https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CONTRIBUTORS.md) lists.
+If you have participated but do not appear in the All Contributor lists, let it know in the Discord server.
