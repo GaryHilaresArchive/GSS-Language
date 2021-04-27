@@ -1,9 +1,11 @@
-# GSS Language and Tools
-[![badge-lastcommit](https://img.shields.io/github/last-commit/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/commits/main)
-[![badge-openissues](https://img.shields.io/github/issues-raw/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/issues)
-[![badge-license](https://img.shields.io/github/license/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/blob/main/LICENSE)
-[![badge-contributors](https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language/graphs/contributors)
-[![badge-codesize](https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge)](https://github.com/GaryNLOL/GSS-Language)
+<h1 align="center">GSS Language and Tools</h1>
+<p align="center">
+<img alt="badge-lastcommit" src="https://img.shields.io/github/last-commit/GaryNLOL/GSS-Language?style=for-the-badge">
+<img alt="badge-openissues" src="https://img.shields.io/github/issues-raw/GaryNLOL/GSS-Language?style=for-the-badge">
+<img alt="badge-license" src="https://img.shields.io/github/license/GaryNLOL/GSS-Language?style=for-the-badge">
+<img alt="badge-contributors" src="https://img.shields.io/github/contributors/GaryNLOL/GSS-Language?style=for-the-badge">
+<img alt="badge-codesize" src="https://img.shields.io/github/languages/code-size/GaryNLOL/GSS-Language?style=for-the-badge">
+</p>
 
 ## What is GSS Language?
 GSS Language is a simple open-source property definition language inspired in Sass and developed to enforce the Keep It Simple design principle.
