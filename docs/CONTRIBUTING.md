@@ -8,7 +8,7 @@ Because of this, and to make the environment more enjoyable for everyone, we imp
 </p>
 
 <p align="justify">
-To contribute, you must follow our <!-- ProjectDependant --> <a href="https://github.com/GaryNLOL/Rubber-Numbers/blob/main/docs/CODE_OF_CONDUCT.md">Code of Conduct</a><!-- /ProjectDependant -->.
+To contribute, you must follow our <!-- ProjectDependant --> <a href="https://github.com/GaryNLOL/GSS-Language/blob/main/docs/CODE_OF_CONDUCT.md">Code of Conduct</a><!-- /ProjectDependant -->.
 Please be sure you have read it.
 Additionally, if you're going to contribute with code, please follow the <a href="https://github.com/GaryNLOL/Style-Guides">corresponding style guide</a> of the language you will use.
 If there is not a style guide language of the language you want to use, please let it know in the Discord server and we will answer you as soon as possible.
@@ -19,9 +19,8 @@ Changes should be focused on the scope and purpose of the project.
 
 <!-- ProjectDependant -->
 Contributions in Rubber Numbers should relate to:
-- Number handling.
-- Maths.
-- Graph visualization.
+- GSS Language design.
+- Tools for work with GSS Language.
 <!-- /ProjectDependant -->
 
 Any contribution out of the scope should be strongly discussed and approved in the Discord server.
